@@ -24,5 +24,6 @@ namespace LemonadeStand
         {
             Console.WriteLine("Looks like it is " + weatherString + " outside. With a high of " + temp + ".");
         }
+
     }
 }

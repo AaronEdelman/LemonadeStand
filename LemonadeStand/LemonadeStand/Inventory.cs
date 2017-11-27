@@ -18,4 +18,5 @@ namespace LemonadeStand
             this.wallet = wallet;
         }
     }
+
 }

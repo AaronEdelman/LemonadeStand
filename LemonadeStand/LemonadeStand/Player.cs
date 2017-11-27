@@ -15,39 +15,47 @@ namespace LemonadeStand
         {
             inventory = new Inventory(initialMoney);
         }
-        public int getPurchaseQuantity(string product)
+        public int GetPurchaseQuantity(string product)
         {
-            Console.WriteLine("How many" + product + " would you like to buy?");
+            Console.WriteLine("How many " + product + " would you like to buy?");
             string productQuantityString = Console.ReadLine();
             int productQuantityNum = Convert.ToInt32(productQuantityString);
             return productQuantityNum;
         }
-        public int GetSubtotal(int prodQuantity, int prodPrice)
+        public float GetSubtotal(int prodQuantity, float prodPrice)
         {
-            int cost;
+            float cost;
             cost = prodQuantity * prodPrice;
             return cost;
         }
-        public void creditWallet(int prodCost)
+        public void CreditWallet(float prodCost)
         {
             inventory.wallet -= prodCost;
         }
-        public void addToIceInventory(int prodQuantity)
+        public void AddToInventory(string product, int prodQuantity)
         {
-            inventory.ice += prodQuantity;
+            switch (product)
+            {
+                case "lemons":
+                    inventory.lemon += prodQuantity;
+                    break;
+                case "sugar":
+                    inventory.sugar += prodQuantity;
+                    break;
+                case "ice":
+                    inventory.ice += prodQuantity;
+                    break;
+            }
         }
-        public void addToLemonInventory(int prodQuantity)
+        public void CheckWallet()
         {
-            inventory.lemon += prodQuantity;
+            Console.WriteLine("You have $" + Math.Round(inventory.wallet, 2));
         }
-        public void addToSugarInventory(int prodQuantity)
+        public void CheckInventory()
         {
-            inventory.sugar += prodQuantity;
+               Console.WriteLine("You have " + inventory.lemon + " lemons left.");
+               Console.WriteLine("You have " + inventory.sugar + " bags of sugar left.");
+               Console.WriteLine("You have " + inventory.ice + " bags of ice left.");
         }
-        public void BuyItem(int prodQuantity)
-        {
-
-        }
-
     }
 }

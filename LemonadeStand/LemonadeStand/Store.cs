@@ -8,12 +8,12 @@ namespace LemonadeStand
 {
     class Store
     {
-        string lemons = "lemons";
-        float lemonPrice = .65F;
-        string sugar = "sugar";
-        float sugarPrice = .98F;
-        string ice = "ice";
-        float icePrice = .49F;
+        public string lemons = "lemons";
+        public float lemonPrice = .65F;
+        public string sugar = "sugar";
+        public float sugarPrice = .98F;
+        public string ice = "ice";
+        public float icePrice = .49F;
 
         public void DisplayPrice(string product, float productPrice)
         {
