@@ -50,8 +50,6 @@ namespace LemonadeStand
 
                 //customers.Add(new Customer(temp));
             }
-            Console.WriteLine(customers.Count);
-            Console.ReadLine();
         }
     }
 }

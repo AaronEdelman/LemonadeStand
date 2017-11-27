@@ -60,7 +60,28 @@ namespace LemonadeStand
         }
         public void AnnounceRecipe()
         {
-            Console.WriteLine(recipe);
+            Console.WriteLine("A jug of lemonade has " + recipe[0] + " lemons, " + recipe[1] + " bags of sugar. and " + recipe [2] + "bags of ice.");
+        }
+        public void ChangeRecipeLemons()
+        {
+            Console.WriteLine("Change # of lemons in each jug to:");
+            string lemonRecipe = Console.ReadLine();
+            int lemonRecipeNum = int.Parse(lemonRecipe);
+            recipe[0] = lemonRecipeNum;
+        }
+        public void ChangeRecipeSugar()
+        {
+            Console.WriteLine("Change # of bags of sugar in each jug to:");
+            string sugarRecipe = Console.ReadLine();
+            int sugarRecipeNum = int.Parse(sugarRecipe);
+            recipe[1] = sugarRecipeNum;
+        }
+        public void ChangeRecipeice()
+        {
+            Console.WriteLine("Change # of bags of ice in each jug to:");
+            string iceRecipe = Console.ReadLine();
+            int iceRecipeNum = int.Parse(iceRecipe);
+            recipe[2] = iceRecipeNum;
         }
     }
 }
