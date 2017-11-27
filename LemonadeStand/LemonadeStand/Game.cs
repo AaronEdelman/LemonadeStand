@@ -22,6 +22,7 @@ namespace LemonadeStand
             day.DisplayWeather();
             PlayerStoreInterface();
             player.AnnounceRecipe();
+            player.ChangeRecipeOption();
             Console.ReadLine();
         }
         public void PlayerStoreInterface()
@@ -47,6 +48,17 @@ namespace LemonadeStand
             player.CreditWallet(subtotal);
             player.AddToInventory(store.ice, purchaseQuantity);
             player.CheckWallet();
+        }
+        public void PlayerCustomerInterface()
+        {
+            foreach(Customer customer in day.customers)
+            {
+                if (customer.willBuy == true)
+                {
+                    //player.SellLemonade;
+                }
+            }
+
         }
     }
 }

@@ -47,8 +47,6 @@ namespace LemonadeStand
             {
                 Customer customer = new Customer(temp);
                 customers.Add(customer);
-
-                //customers.Add(new Customer(temp));
             }
         }
     }
