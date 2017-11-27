@@ -10,6 +10,7 @@ namespace LemonadeStand
     {
         Inventory inventory;
         float initialMoney = 20;
+        int[] recipe = new int[] { 2, 2, 2 };
 
         public void startBusiness ()
         {
@@ -56,6 +57,10 @@ namespace LemonadeStand
                Console.WriteLine("You have " + inventory.lemon + " lemons left.");
                Console.WriteLine("You have " + inventory.sugar + " bags of sugar left.");
                Console.WriteLine("You have " + inventory.ice + " bags of ice left.");
+        }
+        public void AnnounceRecipe()
+        {
+            Console.WriteLine(recipe);
         }
     }
 }

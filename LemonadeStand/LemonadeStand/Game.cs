@@ -9,7 +9,7 @@ namespace LemonadeStand
     class Game
     {
         Player player;
-        Day day;
+        public Day day;
         Store store;
         int dayCount = 0;
         public void RunGame()
@@ -21,6 +21,7 @@ namespace LemonadeStand
             day.RunDay();
             day.DisplayWeather();
             PlayerStoreInterface();
+            player.AnnounceRecipe();
             Console.ReadLine();
         }
         public void PlayerStoreInterface()
