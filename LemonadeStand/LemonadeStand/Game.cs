@@ -11,25 +11,48 @@ namespace LemonadeStand
         Player player;
         public Day day;
         Store store;
-        int dayCount = 0;
+        int dayCount = 1;
         public void RunGame()
         {
             player = new Player();
             store = new Store();
             player.startBusiness();      
-            day = new Day();
-            day.RunDay();
-            day.DisplayWeather();
-            PlayerStoreInterface();
-            player.AnnounceRecipe();
-            player.ChangeRecipeOption();
-            float recipeSum = player.SumRecipe();
-            float recipeStrength = player.GetRecipeStrength(recipeSum);
-            player.SetPrice();
-            GetCustomerPreferences(recipeStrength);
-            PlayerCustomerInterface();
-            player.CheckWallet();
-            player.CheckInventory();
+            //day = new Day();
+            //day.RunDay();
+            //day.DisplayWeather();
+            //PlayerStoreInterface();
+            //player.AnnounceRecipe();
+            //player.ChangeRecipeOption();
+            //float recipeSum = player.SumRecipe();
+            //float recipeStrength = player.GetRecipeStrength(recipeSum);
+            //player.SetPrice();
+            //GetCustomerPreferences(recipeStrength);
+            //PlayerCustomerInterface();
+            //player.CheckWallet();
+            //player.CheckInventory();
+            //Console.ReadLine();
+            while (dayCount < 8)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Day " + dayCount);
+                day = new Day();
+                day.RunDay();
+                day.DisplayWeather();
+                PlayerStoreInterface();
+                player.AnnounceRecipe();
+                player.ChangeRecipeOption();
+                float recipeSum = player.SumRecipe();
+                float recipeStrength = player.GetRecipeStrength(recipeSum);
+                player.SetPrice();
+                GetCustomerPreferences(recipeStrength);
+                PlayerCustomerInterface();
+                DisplayDayProfit();
+                player.ResetSellcount();
+                SpoilIce();
+                dayCount++;
+                ClearConsole();
+            }
+            DisplayTotalProfit();
             Console.ReadLine();
         }
         public void PlayerStoreInterface()
@@ -63,7 +86,6 @@ namespace LemonadeStand
                 if (customer.willBuy == true)
                 {
                     player.SellLemonade();
-                    day.buyCount++;
                 }
             }
 
@@ -78,14 +100,26 @@ namespace LemonadeStand
                 customer.BuyLemonadeDecision();
             }
         }
-        public void CalculateDayProfit()
+        public void DisplayDayProfit()
         {
-            float profit = day.buyCount * player.price;
-            Console.WriteLine("Profit = $" + profit);
+            float profit = player.sellCount * player.price;
+            Console.WriteLine("Today's profit = $" + profit);
+        }
+        public void DisplayTotalProfit()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Congratulations! At the end of the week you made $" + player.inventory.wallet);
         }
         public void SpoilIce()
         {
             player.inventory.ice = 0;
+            Console.WriteLine("All of your ice melted!");
+        }
+        public void ClearConsole()
+        {
+            Console.WriteLine("Press any key to continue.");
+            string userInput = Console.ReadLine();
+            Console.Clear();
         }
     }
 }

@@ -12,7 +12,6 @@ namespace LemonadeStand
         string weatherString;
         public int temp;
         public List<Customer> customers = new List<Customer>();
-        public int buyCount = 0;
 
         public void RunDay()
         {

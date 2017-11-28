@@ -12,7 +12,8 @@ namespace LemonadeStand
         float initialMoney = 20;
         int[] recipe = new int[] { 2, 2, 2 };
         public float price = .25F;
-        float cupsPerJug = 10;
+        float cupsPerJug = 15;
+        public int sellCount = 0;
 
         public void startBusiness ()
         {
@@ -136,7 +137,12 @@ namespace LemonadeStand
             {
                 DebitWallet();
                 DecreaseInventory();
+                sellCount++;
             }
+        }
+        public void ResetSellcount()
+        {
+            sellCount = 0;
         }
     }
 }
