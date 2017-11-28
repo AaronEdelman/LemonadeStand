@@ -9,9 +9,9 @@ namespace LemonadeStand
     class Inventory
     {
         public float wallet;
-        public int lemon;
-        public int sugar;
-        public int ice;
+        public float lemon;
+        public float sugar;
+        public float ice;
 
         public Inventory(float wallet)
         {

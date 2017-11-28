@@ -16,23 +16,25 @@ namespace LemonadeStand
         //constructor
         public Customer(int temp)
         {
-            this.temp = temp/100;
+            this.temp = temp;
         }
         public void GetPropensityToBuy()
         {
-            demand = new Random().Next(0, 100)/100;
+            float demandRandom = new Random().Next(0, 101);
+            demand = (float)demandRandom / 100;
         }
         public void GetThirst()
         {
-            thirst = demand + temp;
+            float tempFloat = (float)temp / 100;
+            thirst = demand + tempFloat;
         }
-        public void GetBuyPower(float recipe, float price)
+        public void GetBuyPower(float recipeStrength, float price)
         {
-            buyPower = (thirst + recipe)*(1-price);
+            buyPower = (thirst * recipeStrength)*(1.25F-price); // price elasticity
         }
-        public void BuyLemonade()
+        public void BuyLemonadeDecision()
         {
-            if (buyPower > .5)
+            if (buyPower > 1)
             {
                 willBuy = true;
             }

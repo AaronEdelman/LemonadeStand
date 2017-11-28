@@ -10,7 +10,7 @@ namespace LemonadeStand
     {
         public int GetWeatherTypeNum()
         {
-            int weatherType = new Random().Next(0, 2);
+            int weatherType = new Random().Next(0, 3);
             return weatherType;
         }
         public string ConvertWeatherType(int weatherNum)
@@ -33,7 +33,7 @@ namespace LemonadeStand
         public int GetTemp()
         {
             int temp;
-            temp = new Random().Next(40, 99);
+            temp = new Random().Next(40, 101);
             return temp;
         }
     }

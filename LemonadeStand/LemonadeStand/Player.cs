@@ -8,10 +8,11 @@ namespace LemonadeStand
 {
     class Player
     {
-        Inventory inventory;
+        public Inventory inventory;
         float initialMoney = 20;
         int[] recipe = new int[] { 2, 2, 2 };
-        float price = .25F;
+        public float price = .25F;
+        float cupsPerJug = 10;
 
         public void startBusiness ()
         {
@@ -34,9 +35,9 @@ namespace LemonadeStand
         {
             inventory.wallet -= prodCost;
         }
-        public void DebitWallet(float sale)
+        public void DebitWallet()
         {
-            inventory.wallet += sale;
+            inventory.wallet += price;
         }
         public void AddToInventory(string product, int prodQuantity)
         {
@@ -65,7 +66,7 @@ namespace LemonadeStand
         }
         public void AnnounceRecipe()
         {
-            Console.WriteLine("A jug of lemonade has " + recipe[0] + " lemons, " + recipe[1] + " bags of sugar. and " + recipe [2] + " bags of ice.");
+            Console.WriteLine("A jug of lemonade has " + recipe[0] + " lemons, " + recipe[1] + " bags of sugar, and " + recipe [2] + " bags of ice.");
         }
         public void ChangeRecipeLemons()
         {
@@ -114,18 +115,28 @@ namespace LemonadeStand
         }
         public float GetRecipeStrength(float recipeSum)
         {
-            float recipeStrength = recipeSum / 12;
+            float recipeStrength = recipeSum / 6; //recipe elasticity coefficent
             return recipeStrength;
         }
         public void SetPrice()
         {
             Console.WriteLine("Current price per cup is $" + price + ". What should the price be set to?");
             string priceString = Console.ReadLine();
-            price = int.Parse(priceString);
+            price = float.Parse(priceString);
+        }
+        public void DecreaseInventory()
+        {
+            inventory.lemon -= (float)recipe[0]/cupsPerJug;
+            inventory.sugar -= (float)recipe[1]/cupsPerJug;
+            inventory.ice -= (float)recipe[2]/cupsPerJug;
         }
         public void SellLemonade()
         {
-
+            if (inventory.lemon >= 0 && inventory.sugar >= 0 && inventory.ice >=0)
+            {
+                DebitWallet();
+                DecreaseInventory();
+            }
         }
     }
 }

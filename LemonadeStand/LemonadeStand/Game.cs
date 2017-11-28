@@ -15,14 +15,21 @@ namespace LemonadeStand
         public void RunGame()
         {
             player = new Player();
-            day = new Day();
             store = new Store();
-            player.startBusiness();
+            player.startBusiness();      
+            day = new Day();
             day.RunDay();
             day.DisplayWeather();
             PlayerStoreInterface();
             player.AnnounceRecipe();
             player.ChangeRecipeOption();
+            float recipeSum = player.SumRecipe();
+            float recipeStrength = player.GetRecipeStrength(recipeSum);
+            player.SetPrice();
+            GetCustomerPreferences(recipeStrength);
+            PlayerCustomerInterface();
+            player.CheckWallet();
+            player.CheckInventory();
             Console.ReadLine();
         }
         public void PlayerStoreInterface()
@@ -55,10 +62,30 @@ namespace LemonadeStand
             {
                 if (customer.willBuy == true)
                 {
-                    //player.SellLemonade;
+                    player.SellLemonade();
+                    day.buyCount++;
                 }
             }
 
+        }
+        public void GetCustomerPreferences(float recipeStrength)
+        {
+            foreach(Customer customer in day.customers)
+            {
+                customer.GetPropensityToBuy();
+                customer.GetThirst();
+                customer.GetBuyPower(recipeStrength, player.price);
+                customer.BuyLemonadeDecision();
+            }
+        }
+        public void CalculateDayProfit()
+        {
+            float profit = day.buyCount * player.price;
+            Console.WriteLine("Profit = $" + profit);
+        }
+        public void SpoilIce()
+        {
+            player.inventory.ice = 0;
         }
     }
 }
