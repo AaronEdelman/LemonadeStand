@@ -12,6 +12,7 @@ namespace LemonadeStand
         float demand;
         float thirst;
         float buyPower;
+        float maxPrice;
         public bool willBuy;
         //constructor
         public Customer(int temp)
@@ -23,6 +24,11 @@ namespace LemonadeStand
             float demandRandom = new Random().Next(0, 101);
             demand = (float)demandRandom / 100;
         }
+        public void MaxPrice()
+        {
+            float maxPriceRandom = new Random().Next(100, 150);
+            maxPrice = (float)maxPriceRandom / 100;
+        }
         public void GetThirst()
         {
             float tempFloat = (float)temp / 100;
@@ -30,7 +36,7 @@ namespace LemonadeStand
         }
         public void GetBuyPower(float recipeStrength, float price)
         {
-            buyPower = (thirst * recipeStrength)*(1.25F-price); // price elasticity
+            buyPower = (thirst * recipeStrength)*(maxPrice-price);
         }
         public void BuyLemonadeDecision()
         {

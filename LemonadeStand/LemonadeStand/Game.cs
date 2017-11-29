@@ -12,24 +12,21 @@ namespace LemonadeStand
         public Day day;
         Store store;
         int dayCount = 1;
+        int gameLength;
         public void RunGame()
         {
+            SetGameLength();
             player = new Player();
             store = new Store();
             player.startBusiness();     
-            while (dayCount < 8)
+            while (dayCount < gameLength)
             {
                 Console.WriteLine();
                 day = new Day();
                 day.RunDay();
-                //day.DisplayWeather();
-                //PlayerStoreInterface();
-                //player.AnnounceRecipe();
-                //player.ChangeRecipeOption();
                 MainMenu();
                 float recipeSum = player.SumRecipe();
                 float recipeStrength = player.GetRecipeStrength(recipeSum);
-                //player.SetPrice();
                 GetCustomerPreferences(recipeStrength);
                 PlayerCustomerInterface();
                 player.DisplayDayProfit();
@@ -41,30 +38,7 @@ namespace LemonadeStand
             player.DisplayTotalProfit();
             Console.ReadLine();
         }
-        public void PlayerStoreInterface()
-        {
-            player.CheckInventory();
-            player.CheckWallet();
-            store.DisplayAllPrices();
-            //lemons
-            int purchaseQuantity = player.GetPurchaseQuantity(store.lemons);
-            float subtotal = player.GetSubtotal(purchaseQuantity, store.lemonPrice);
-            player.CreditWallet(subtotal);
-            player.AddToInventory(store.lemons, purchaseQuantity);
-            player.CheckWallet();
-            //sugar
-            purchaseQuantity = player.GetPurchaseQuantity(store.sugar);
-            subtotal = player.GetSubtotal(purchaseQuantity, store.sugarPrice);
-            player.CreditWallet(subtotal);
-            player.AddToInventory(store.sugar, purchaseQuantity);
-            player.CheckWallet();
-            //ice
-            purchaseQuantity = player.GetPurchaseQuantity(store.ice);
-            subtotal = player.GetSubtotal(purchaseQuantity, store.icePrice);
-            player.CreditWallet(subtotal);
-            player.AddToInventory(store.ice, purchaseQuantity);
-            player.CheckWallet();
-        }
+        
         public void PlayerCustomerInterface()
         {
             foreach(Customer customer in day.customers)
@@ -99,7 +73,7 @@ namespace LemonadeStand
         }
         public void MainMenu()
         {
-            Console.WriteLine("Day "+ dayCount + "\n\nWhat would you like to do?\n\n[1] Check Inventory\n[2] Go to Store\n[3] Set Recipe\n[4] Set Price\n[5]Check Weather\n[6] Start Selling!!!! ");
+            Console.WriteLine("Day "+ dayCount + "\n\nWhat would you like to do?\n\n[1] Check Inventory\n[2] Go to Store\n[3] Set Recipe\n[4] Set Price\n[5] Check Weather\n[6] Start Selling!!!! ");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5" && userInput != "6")
             {
@@ -118,30 +92,30 @@ namespace LemonadeStand
                         StoreMenu();
                         break;
                     case 3:
-                    Console.Clear();
-                    RecipeMenu();
-                    break;
+                        Console.Clear();
+                        RecipeMenu();
+                        break;
                     case 4:
-                    Console.Clear();
-                    player.SetPrice();
-                    Console.Clear();
-                    MainMenu();
-                    break;
+                        Console.Clear();
+                        player.SetPrice();
+                        Console.Clear();
+                        MainMenu();
+                        break;
                 case 5:
-                    Console.Clear();
-                    day.DisplayWeather();
-                    Console.Clear();
-                    MainMenu();
-                    break;
+                        Console.Clear();
+                        day.DisplayWeather();
+                        Console.Clear();
+                        MainMenu();
+                        break;
                 case 6:
-                    break;
+                        break;
                 }
         }
         public void InventoryMenu()
         {
             Console.WriteLine("Inventory\n\n");
             player.CheckInventory();
-            Console.WriteLine("\n\n[1]Main Menu\n[2]Go to Store");
+            Console.WriteLine("\n\n[1] Main Menu\n[2] Go to Store");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2")
             {
@@ -167,7 +141,7 @@ namespace LemonadeStand
             player.CheckWallet();
             Console.WriteLine();
             store.DisplayAllPrices();
-            Console.WriteLine("\n[1]Lemons\n[2]Sugar\n[3]Ice\n\n[4]Check Inventory\n[5]Main Menu");
+            Console.WriteLine("\n[1] Lemons\n[2] Sugar\n[3] Ice\n[4] All Ingrediants\n\n[5] Check Inventory\n[6] Main Menu");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5")
             {
@@ -209,9 +183,28 @@ namespace LemonadeStand
                     break;
                 case 4:
                     Console.Clear();
-                    InventoryMenu();
+                    purchaseQuantity = player.GetPurchaseQuantity(store.lemons);
+                    subtotal = player.GetSubtotal(purchaseQuantity, store.lemonPrice);
+                    player.CreditWallet(subtotal);
+                    player.AddToInventory(store.lemons, purchaseQuantity);
+                    player.CheckWallet();
+                    purchaseQuantity = player.GetPurchaseQuantity(store.sugar);
+                    subtotal = player.GetSubtotal(purchaseQuantity, store.sugarPrice);
+                    player.CreditWallet(subtotal);
+                    player.AddToInventory(store.sugar, purchaseQuantity);
+                    player.CheckWallet();
+                    purchaseQuantity = player.GetPurchaseQuantity(store.ice);
+                    subtotal = player.GetSubtotal(purchaseQuantity, store.icePrice);
+                    player.CreditWallet(subtotal);
+                    player.AddToInventory(store.ice, purchaseQuantity);
+                    Console.Clear();
+                    StoreMenu();
                     break;
                 case 5:
+                    Console.Clear();
+                    InventoryMenu();
+                    break;
+                case 6:
                     Console.Clear();
                     MainMenu();
                     break;
@@ -221,7 +214,7 @@ namespace LemonadeStand
         {
             Console.WriteLine("Lemonade Cookbook\n\n");
             player.AnnounceRecipe();
-            Console.WriteLine("\n\n[1]Change # of Lemons\n[2]Change Amount of Sugar\n[3]Change Amount of Ice\n[4]Change All Ingrediants at Once\n\n[5]Main Menu");
+            Console.WriteLine("\n\n[1] Change # of Lemons\n[2] Change Amount of Sugar\n[3] Change Amount of Ice\n[4] Change All Ingrediants\n\n[5] Main Menu");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5")
             {
@@ -258,6 +251,32 @@ namespace LemonadeStand
                 case 5:
                     Console.Clear();
                     MainMenu();
+                    break;
+            }
+        }
+        public void SetGameLength()
+        {
+            Console.WriteLine("\nFor how many days would you like to sell lemonade?\n\n[1] 7 Days\n[2] 14 Days\n[3] 30 Days (not reccommended)");
+            string userInput = Console.ReadLine();
+            if (userInput != "1" && userInput != "2" && userInput != "3")
+            {
+                Console.Clear();
+                SetGameLength();
+            }
+            int userInputNum = int.Parse(userInput);
+            switch (userInputNum)
+            {
+                case 1:
+                    Console.Clear();
+                    gameLength = 8;
+                    break;
+                case 2:
+                    Console.Clear();
+                    gameLength = 15;
+                    break;
+                case 3:
+                    Console.Clear();
+                    gameLength = 31;
                     break;
             }
         }
