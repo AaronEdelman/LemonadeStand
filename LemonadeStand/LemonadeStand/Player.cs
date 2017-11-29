@@ -61,9 +61,9 @@ namespace LemonadeStand
         }
         public void CheckInventory()
         {
-               Console.WriteLine("You have " + inventory.lemon + " lemons left.");
-               Console.WriteLine("You have " + inventory.sugar + " bags of sugar left.");
-               Console.WriteLine("You have " + inventory.ice + " bags of ice left.");
+               Console.WriteLine("You have " + inventory.lemon + " lemons.");
+               Console.WriteLine("You have " + inventory.sugar + " bags of sugar.");
+               Console.WriteLine("You have " + inventory.ice + " bags of ice.");
         }
         public void AnnounceRecipe()
         {
@@ -133,7 +133,7 @@ namespace LemonadeStand
         }
         public void SellLemonade()
         {
-            if (inventory.lemon >= 0 && inventory.sugar >= 0 && inventory.ice >=0)
+            if (inventory.lemon > 0 && inventory.sugar > 0 && inventory.ice >0)
             {
                 DebitWallet();
                 DecreaseInventory();
@@ -143,6 +143,16 @@ namespace LemonadeStand
         public void ResetSellcount()
         {
             sellCount = 0;
+        }
+        public void DisplayDayProfit()
+        {
+            float profit = sellCount * price;
+            Console.WriteLine("Today's profit = $" + profit);
+        }
+        public void DisplayTotalProfit()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Congratulations! At the end of the week you lost $" + (inventory.wallet - 20));
         }
     }
 }

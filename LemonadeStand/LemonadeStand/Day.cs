@@ -24,6 +24,7 @@ namespace LemonadeStand
         public void DisplayWeather()
         {
             Console.WriteLine("Looks like it is " + weatherString + " outside. With a high of " + temp + ".");
+            Console.ReadLine();
         }
         public void ChooseNumberOfCustomers(string weatherString)
         {
