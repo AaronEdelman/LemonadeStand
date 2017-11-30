@@ -10,9 +10,9 @@ namespace LemonadeStand
     {
         SqlConnection seed = new SqlConnection("Data Source=.;Initial Catalog=LemonadeStandScore;Integrated Security=True");
 
-        public void ExecuteSqlTransaction(string fizz, int buzz)
+        public void ExecuteSqlTransaction(string name)
         {
-            using (SqlConnection seed = new SqlConnection(fizz))
+            using (SqlConnection seed = new SqlConnection(name))
             {
                 seed.Open();
                 SqlCommand command = seed.CreateCommand();
@@ -24,7 +24,7 @@ namespace LemonadeStand
                 command.Transaction = transaction;
 
                     command.CommandText =
-                "Insert into LemonadeScore (Name) Values (name)";
+                "Insert into LemonadeScore (Name, Profit) Values (name, profit)";
                     command.ExecuteNonQuery();
 
                     // Attempt to commit the transaction.

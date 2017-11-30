@@ -13,8 +13,9 @@ namespace LemonadeStand
         Store store;
         int dayCount = 1;
         int gameLength;
-        float finalScore;
-        string name = "name";
+        public float finalScore;
+        public string name = "name";
+        public Random r;
         public void RunGame()
         {
             SetGameLength();
@@ -24,7 +25,8 @@ namespace LemonadeStand
             while (dayCount < gameLength)
             {
                 Console.WriteLine();
-                day = new Day();
+                GetRandomNumber();
+                day = new Day(r);
                 day.RunDay();
                 MainMenu();
                 Console.Clear();
@@ -32,6 +34,7 @@ namespace LemonadeStand
                 float recipeStrength = player.GetRecipeStrength(recipeSum);
                 GetCustomerPreferences(recipeStrength);
                 PlayerCustomerInterface();
+                player.DisplaySaleStats(day.customerCount);
                 player.DisplayDayProfit();
                 player.ResetSellcount();
                 SpoilIce();
@@ -43,7 +46,7 @@ namespace LemonadeStand
             Console.ReadLine();
         }
         
-        public void PlayerCustomerInterface()
+        private void PlayerCustomerInterface()
         {
             foreach(Customer customer in day.customers)
             {
@@ -54,7 +57,7 @@ namespace LemonadeStand
             }
 
         }
-        public void GetCustomerPreferences(float recipeStrength)
+        private void GetCustomerPreferences(float recipeStrength)
         {
             foreach(Customer customer in day.customers)
             {
@@ -65,18 +68,18 @@ namespace LemonadeStand
                 customer.BuyLemonadeDecision();
             }
         }
-        public void SpoilIce()
+        private void SpoilIce()
         {
             player.inventory.ice = 0;
             Console.WriteLine("All of your ice melted!");
         }
-        public void ClearConsole()
+        private void ClearConsole()
         {
             Console.WriteLine("Press any key to continue.");
             string userInput = Console.ReadLine();
             Console.Clear();
         }
-        public void MainMenu()
+        private void MainMenu()
         {
             Console.WriteLine("Day "+ dayCount + "\n\nWhat would you like to do?\n\n[1] Check Inventory\n[2] Go to Store\n[3] Set Recipe\n[4] Set Price\n[5] Check Weather\n[6] Start Selling!!!! ");
             string userInput = Console.ReadLine();
@@ -116,7 +119,7 @@ namespace LemonadeStand
                         break;
                 }
         }
-        public void InventoryMenu()
+        private void InventoryMenu()
         {
             Console.WriteLine("Inventory\n\n");
             player.CheckInventory();
@@ -140,13 +143,13 @@ namespace LemonadeStand
                     break;
             }
         }
-        public void StoreMenu()
+        private void StoreMenu()
         {
             Console.WriteLine("Welcome to the Lemon, Sugar, and Ice Shop.  We only sell Lemons, Sugar, and Ice. What would you like to buy?\n");
             player.CheckWallet();
             Console.WriteLine();
             store.DisplayAllPrices();
-            Console.WriteLine("\n[1] Lemons\n[2] Sugar\n[3] Ice\n[4] All Ingrediants\n\n[5] Check Inventory\n[6] Main Menu");
+            Console.WriteLine("\nBuy:\n[1] Lemons\n[2] Sugar\n[3] Ice\n[4] All Ingrediants\n\n[5] Check Inventory\n[6] Main Menu");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5" && userInput != "6")
             {
@@ -257,11 +260,11 @@ namespace LemonadeStand
                     break;
             }
         }
-        public void RecipeMenu()
+        private void RecipeMenu()
         {
             Console.WriteLine("Lemonade Cookbook\n\n");
             player.AnnounceRecipe();
-            Console.WriteLine("\n\n[1] Change # of Lemons\n[2] Change Amount of Sugar\n[3] Change Amount of Ice\n[4] Change All Ingrediants\n\n[5] Main Menu");
+            Console.WriteLine("\n\nPer Jug:\n[1] Change # of Lemons\n[2] Change Amount of Sugar\n[3] Change Amount of Ice\n[4] Change All Ingrediants\n\n[5] Main Menu");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5")
             {
@@ -301,7 +304,7 @@ namespace LemonadeStand
                     break;
             }
         }
-        public void SetGameLength()
+        private void SetGameLength()
         {
             Console.WriteLine("\nFor how many days would you like to sell lemonade?\n\n[1] 7 Days\n[2] 14 Days\n[3] 30 Days (not reccommended)");
             string userInput = Console.ReadLine();
@@ -326,6 +329,10 @@ namespace LemonadeStand
                     gameLength = 31;
                     break;
             }
+        }
+        public void GetRandomNumber()
+        {
+            r = new Random();
         }
     }
 }

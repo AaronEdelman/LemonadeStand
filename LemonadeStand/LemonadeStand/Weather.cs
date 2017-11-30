@@ -8,9 +8,15 @@ namespace LemonadeStand
 {
     class Weather
     {
+        Random r;
+        //constructor
+        public Weather(Random r)
+        {
+            this.r = r;
+        }
         public int GetWeatherTypeNum()
         {
-            int weatherType = new Random().Next(0, 3);
+            int weatherType = r.Next(0, 3);
             return weatherType;
         }
         public string ConvertWeatherType(int weatherNum)
@@ -33,7 +39,7 @@ namespace LemonadeStand
         public int GetTemp()
         {
             int temp;
-            temp = new Random().Next(40, 101);
+            temp = r.Next(40, 101);
             return temp;
         }
     }

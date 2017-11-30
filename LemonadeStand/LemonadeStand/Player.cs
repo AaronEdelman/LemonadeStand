@@ -15,7 +15,7 @@ namespace LemonadeStand
         float cupsPerJug = 15;
         public int sellCount = 0;
 
-        public void startBusiness ()
+        public void startBusiness()
         {
             inventory = new Inventory(initialMoney);
         }
@@ -61,13 +61,13 @@ namespace LemonadeStand
         }
         public void CheckInventory()
         {
-               Console.WriteLine("You have " + Math.Round(inventory.lemon, 1) + " lemons.");
-               Console.WriteLine("You have " + Math.Round(inventory.sugar, 1) + " bags of sugar.");
-               Console.WriteLine("You have " + Math.Round(inventory.ice, 1) + " bags of ice.");
+            Console.WriteLine("You have " + Math.Round(inventory.lemon, 1) + " lemons.");
+            Console.WriteLine("You have " + Math.Round(inventory.sugar, 1) + " bags of sugar.");
+            Console.WriteLine("You have " + Math.Round(inventory.ice, 1) + " bags of ice.");
         }
         public void AnnounceRecipe()
         {
-            Console.WriteLine("A jug of lemonade has " + recipe[0] + " lemons, " + recipe[1] + " bags of sugar, and " + recipe [2] + " bags of ice.");
+            Console.WriteLine("A jug of lemonade has " + recipe[0] + " lemons, " + recipe[1] + " bags of sugar, and " + recipe[2] + " bags of ice.");
         }
         public void ChangeRecipeLemons()
         {
@@ -114,17 +114,18 @@ namespace LemonadeStand
         {
             Console.WriteLine("Current price per cup is $" + price + ". What should the price be set to?");
             string priceString = Console.ReadLine();
-            price = float.Parse(priceString);
+            ValidateSetPrice(priceString);
+            //price = float.Parse(priceString);
         }
         public void DecreaseInventory()
         {
-            inventory.lemon -= (float)Math.Round(recipe[0]/cupsPerJug, 2);
-            inventory.sugar -= (float)Math.Round(recipe[1]/cupsPerJug, 2);
-            inventory.ice -= (float)recipe[2]/cupsPerJug;
+            inventory.lemon -= (float)Math.Round(recipe[0] / cupsPerJug, 2);
+            inventory.sugar -= (float)Math.Round(recipe[1] / cupsPerJug, 2);
+            inventory.ice -= (float)recipe[2] / cupsPerJug;
         }
         public void SellLemonade()
         {
-            if (inventory.lemon > 0 && inventory.sugar > 0 && inventory.ice >0)
+            if (inventory.lemon > 0 && inventory.sugar > 0 && inventory.ice > 0)
             {
                 DebitWallet();
                 DecreaseInventory();
@@ -143,7 +144,40 @@ namespace LemonadeStand
         public void DisplayTotalProfit()
         {
             Console.WriteLine();
-            Console.WriteLine("Congratulations! At the end of the week you lost $" + (inventory.wallet - 20));
+            if (inventory.wallet >= 20)
+            {
+                Console.WriteLine("Congratulations! At the end of the week you made $" + (inventory.wallet - 20));
+            }
+            else
+            {
+                Console.WriteLine("You lost " + (20 - inventory.wallet) + ".  Bad Job!");
+            }
+        }
+        public void DisplaySaleStats(int customerCount)
+        {
+            Console.WriteLine("You sold a total of " + sellCount + " lemonades to " + customerCount + " people that passed by.");
+        }
+        //private void ValidateSetPrice(string priceString)
+        //{
+        //    if (Single.TryParse(priceString, out price))
+        //        {
+        //        price = float.Parse(priceString);
+        //        }
+        //    else
+        //    {
+        //        Console.Clear();
+        //        Console.WriteLine("Enter a number. ex: '.45'");
+        //        SetPrice();
+        //    }
+        //}
+        private void ValidateSetPrice(string priceString)
+        {
+            if (Single.TryParse(priceString, out price));
+            else
+            {
+                Console.WriteLine("Write a number. ex '.45'.");
+                price = .25F;
+            }
         }
     }
 }

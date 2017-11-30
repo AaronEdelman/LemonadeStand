@@ -14,7 +14,7 @@ namespace LemonadeStand
             game.RunGame();
 
             //SqlConnect database = new SqlConnect();
-            //database.ExecuteSqlTransaction("name");
+            //database.ExecuteSqlTransaction(game.name);
         }
     }
 }

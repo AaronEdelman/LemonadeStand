@@ -9,24 +9,26 @@ namespace LemonadeStand
     class Customer
     {
         int temp;
-        float demand;
+        public float demand;
         float thirst;
         float buyPower;
         float maxPrice;
         public bool willBuy;
+        Random r;
         //constructor
-        public Customer(int temp)
+        public Customer(int temp, Random r)
         {
             this.temp = temp;
+            this.r = r;
         }
         public void GetPropensityToBuy()
         {
-            float demandRandom = new Random().Next(0, 101);
+            float demandRandom = r.Next(0, 101);
             demand = (float)demandRandom / 100;
         }
         public void MaxPrice()
         {
-            float maxPriceRandom = new Random().Next(100, 150);
+            float maxPriceRandom = r.Next(100, 150);
             maxPrice = (float)maxPriceRandom / 100;
         }
         public void GetThirst()
