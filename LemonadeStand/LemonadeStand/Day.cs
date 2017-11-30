@@ -31,13 +31,13 @@ namespace LemonadeStand
             switch(weatherString)
             {
                 case "rainy":
-                    GetCustomers(50);
+                    GetCustomers(30);
                     break;
                 case "cloudy":
-                    GetCustomers(100);
+                    GetCustomers(60);
                     break;
                 case "sunny":
-                    GetCustomers(200);
+                    GetCustomers(120);
                     break;
             }
         }

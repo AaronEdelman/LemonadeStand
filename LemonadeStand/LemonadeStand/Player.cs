@@ -61,9 +61,9 @@ namespace LemonadeStand
         }
         public void CheckInventory()
         {
-               Console.WriteLine("You have " + inventory.lemon + " lemons.");
-               Console.WriteLine("You have " + inventory.sugar + " bags of sugar.");
-               Console.WriteLine("You have " + inventory.ice + " bags of ice.");
+               Console.WriteLine("You have " + Math.Round(inventory.lemon, 1) + " lemons.");
+               Console.WriteLine("You have " + Math.Round(inventory.sugar, 1) + " bags of sugar.");
+               Console.WriteLine("You have " + Math.Round(inventory.ice, 1) + " bags of ice.");
         }
         public void AnnounceRecipe()
         {
@@ -96,15 +96,6 @@ namespace LemonadeStand
             ChangeRecipeSugar();
             ChangeRecipeIce();
         }
-        public void ChangeRecipeOption()
-        {
-            Console.WriteLine("Would you like to change this recipe?");
-            string userInput = Console.ReadLine();
-            if (userInput == "yes" || userInput == "Yes" || userInput == "y" || userInput == "Y")
-            {
-                ChangeRecipeAll();
-            }
-        }
         public float SumRecipe()
         {
             float recipeSum = 0;
@@ -127,8 +118,8 @@ namespace LemonadeStand
         }
         public void DecreaseInventory()
         {
-            inventory.lemon -= (float)recipe[0]/cupsPerJug;
-            inventory.sugar -= (float)recipe[1]/cupsPerJug;
+            inventory.lemon -= (float)Math.Round(recipe[0]/cupsPerJug, 2);
+            inventory.sugar -= (float)Math.Round(recipe[1]/cupsPerJug, 2);
             inventory.ice -= (float)recipe[2]/cupsPerJug;
         }
         public void SellLemonade()

@@ -17,6 +17,18 @@ namespace LemonadeStand
         {
             this.wallet = wallet;
         }
+        public bool VerifyPositiveWallet(float subtotal)
+        {
+            if (subtotal < wallet)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("You do not have enough money");
+                Console.ReadLine();
+                return false;
+            }
+        }
     }
-
 }

@@ -13,18 +13,21 @@ namespace LemonadeStand
         Store store;
         int dayCount = 1;
         int gameLength;
+        float finalScore;
+        string name = "name";
         public void RunGame()
         {
             SetGameLength();
             player = new Player();
             store = new Store();
-            player.startBusiness();     
+            player.startBusiness();
             while (dayCount < gameLength)
             {
                 Console.WriteLine();
                 day = new Day();
                 day.RunDay();
                 MainMenu();
+                Console.Clear();
                 float recipeSum = player.SumRecipe();
                 float recipeStrength = player.GetRecipeStrength(recipeSum);
                 GetCustomerPreferences(recipeStrength);
@@ -35,6 +38,7 @@ namespace LemonadeStand
                 dayCount++;
                 ClearConsole();
             }
+            finalScore = player.inventory.wallet;
             player.DisplayTotalProfit();
             Console.ReadLine();
         }
@@ -56,6 +60,7 @@ namespace LemonadeStand
             {
                 customer.GetPropensityToBuy();
                 customer.GetThirst();
+                customer.MaxPrice();
                 customer.GetBuyPower(recipeStrength, player.price);
                 customer.BuyLemonadeDecision();
             }
@@ -143,7 +148,7 @@ namespace LemonadeStand
             store.DisplayAllPrices();
             Console.WriteLine("\n[1] Lemons\n[2] Sugar\n[3] Ice\n[4] All Ingrediants\n\n[5] Check Inventory\n[6] Main Menu");
             string userInput = Console.ReadLine();
-            if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5")
+            if (userInput != "1" && userInput != "2" && userInput != "3" && userInput != "4" && userInput != "5" && userInput != "6")
             {
                 Console.Clear();
                 StoreMenu();
@@ -155,48 +160,90 @@ namespace LemonadeStand
                     Console.Clear();
                     int purchaseQuantity = player.GetPurchaseQuantity(store.lemons);
                     float subtotal = player.GetSubtotal(purchaseQuantity, store.lemonPrice);
-                    player.CreditWallet(subtotal);
-                    player.AddToInventory(store.lemons, purchaseQuantity);
-                    player.CheckWallet();
-                    Console.Clear();
-                    StoreMenu();
+                    bool cashPositive = player.inventory.VerifyPositiveWallet(subtotal);
+                    if (cashPositive == true)
+                    {
+                        player.CreditWallet(subtotal);
+                        player.AddToInventory(store.lemons, purchaseQuantity);
+                        player.CheckWallet();
+                        Console.Clear();
+                        StoreMenu();
+                        break;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        StoreMenu();
+                    }
                     break;
                 case 2:
                     Console.Clear();
                     purchaseQuantity = player.GetPurchaseQuantity(store.sugar);
                     subtotal = player.GetSubtotal(purchaseQuantity, store.sugarPrice);
-                    player.CreditWallet(subtotal);
-                    player.AddToInventory(store.sugar, purchaseQuantity);
-                    player.CheckWallet();
-                    Console.Clear();
-                    StoreMenu();
+                    cashPositive = player.inventory.VerifyPositiveWallet(subtotal);
+                    if (cashPositive == true)
+                    {
+                        player.CreditWallet(subtotal);
+                        player.AddToInventory(store.sugar, purchaseQuantity);
+                        player.CheckWallet();
+                        Console.Clear();
+                        StoreMenu();
+                        break;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        StoreMenu();
+                    }
                     break;
                 case 3:
                     Console.Clear();
                     purchaseQuantity = player.GetPurchaseQuantity(store.ice);
                     subtotal = player.GetSubtotal(purchaseQuantity, store.icePrice);
-                    player.CreditWallet(subtotal);
-                    player.AddToInventory(store.ice, purchaseQuantity);
-                    player.CheckWallet();
-                    Console.Clear();
-                    StoreMenu();
+                    cashPositive = player.inventory.VerifyPositiveWallet(subtotal);
+                    if (cashPositive == true)
+                    {
+                        player.CreditWallet(subtotal);
+                        player.AddToInventory(store.ice, purchaseQuantity);
+                        player.CheckWallet();
+                        Console.Clear();
+                        StoreMenu();
+                        break;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        StoreMenu();
+                    }
                     break;
                 case 4:
                     Console.Clear();
                     purchaseQuantity = player.GetPurchaseQuantity(store.lemons);
                     subtotal = player.GetSubtotal(purchaseQuantity, store.lemonPrice);
-                    player.CreditWallet(subtotal);
-                    player.AddToInventory(store.lemons, purchaseQuantity);
-                    player.CheckWallet();
+                    cashPositive = player.inventory.VerifyPositiveWallet(subtotal);
+                    if (cashPositive == true)
+                    {
+                        player.CreditWallet(subtotal);
+                        player.AddToInventory(store.lemons, purchaseQuantity);
+                        player.CheckWallet();
+                    }
                     purchaseQuantity = player.GetPurchaseQuantity(store.sugar);
                     subtotal = player.GetSubtotal(purchaseQuantity, store.sugarPrice);
-                    player.CreditWallet(subtotal);
-                    player.AddToInventory(store.sugar, purchaseQuantity);
-                    player.CheckWallet();
+                    cashPositive = player.inventory.VerifyPositiveWallet(subtotal);
+                    if (cashPositive == true)
+                    {
+                        player.CreditWallet(subtotal);
+                        player.AddToInventory(store.sugar, purchaseQuantity);
+                        player.CheckWallet();
+                    }
                     purchaseQuantity = player.GetPurchaseQuantity(store.ice);
                     subtotal = player.GetSubtotal(purchaseQuantity, store.icePrice);
-                    player.CreditWallet(subtotal);
-                    player.AddToInventory(store.ice, purchaseQuantity);
+                    cashPositive = player.inventory.VerifyPositiveWallet(subtotal);
+                    if (cashPositive == true)
+                    {
+                        player.CreditWallet(subtotal);
+                        player.AddToInventory(store.ice, purchaseQuantity);
+                    }
                     Console.Clear();
                     StoreMenu();
                     break;
