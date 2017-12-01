@@ -115,7 +115,6 @@ namespace LemonadeStand
             Console.WriteLine("Current price per cup is $" + price + ". What should the price be set to?");
             string priceString = Console.ReadLine();
             ValidateSetPrice(priceString);
-            //price = float.Parse(priceString);
         }
         public void DecreaseInventory()
         {
@@ -139,18 +138,18 @@ namespace LemonadeStand
         public void DisplayDayProfit()
         {
             float profit = sellCount * price;
-            Console.WriteLine("Today's profit = $" + profit);
+            Console.WriteLine("Today's revenue = $" + profit);
         }
         public void DisplayTotalProfit()
         {
             Console.WriteLine();
             if (inventory.wallet >= 20)
             {
-                Console.WriteLine("Congratulations! At the end of the week you made $" + (inventory.wallet - 20));
+                Console.WriteLine("Congratulations! At the end of the week you made $" + ((float)Math.Round(inventory.wallet, 2) - 20));
             }
             else
             {
-                Console.WriteLine("You lost " + (20 - inventory.wallet) + ".  Bad Job!");
+                Console.WriteLine("You lost " + (20 - (float)Math.Round(inventory.wallet, 2)) + ".  Bad Job!");
             }
         }
         public void DisplaySaleStats(int customerCount)
