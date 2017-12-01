@@ -149,7 +149,7 @@ namespace LemonadeStand
             }
             else
             {
-                Console.WriteLine("You lost " + (20 - (float)Math.Round(inventory.wallet, 2)) + ".  Bad Job!");
+                Console.WriteLine("You lost $" + (20 - (float)Math.Round(inventory.wallet, 2)) + ".  Bad Job!");
             }
         }
         public void DisplaySaleStats(int customerCount)
