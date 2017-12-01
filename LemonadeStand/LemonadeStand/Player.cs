@@ -23,7 +23,7 @@ namespace LemonadeStand
         {
             Console.WriteLine("How many " + product + " would you like to buy?");
             string productQuantityString = Console.ReadLine();
-            int productQuantityNum = Convert.ToInt32(productQuantityString);
+            int productQuantityNum = ValidatePurchaseQuantity(productQuantityString);
             return productQuantityNum;
         }
         public float GetSubtotal(int prodQuantity, float prodPrice)
@@ -73,22 +73,22 @@ namespace LemonadeStand
         {
             Console.WriteLine("Change # of lemons in each jug to:");
             string lemonRecipe = Console.ReadLine();
-            int lemonRecipeNum = int.Parse(lemonRecipe);
-            recipe[0] = lemonRecipeNum;
+            int recipeNum = ValidateRecipeQuantity(lemonRecipe);
+            recipe[0] = recipeNum;
         }
         public void ChangeRecipeSugar()
         {
             Console.WriteLine("Change # of bags of sugar in each jug to:");
             string sugarRecipe = Console.ReadLine();
-            int sugarRecipeNum = int.Parse(sugarRecipe);
-            recipe[1] = sugarRecipeNum;
+            int recipeNum = ValidateRecipeQuantity(sugarRecipe);
+            recipe[1] = recipeNum;
         }
         public void ChangeRecipeIce()
         {
             Console.WriteLine("Change # of bags of ice in each jug to:");
             string iceRecipe = Console.ReadLine();
-            int iceRecipeNum = int.Parse(iceRecipe);
-            recipe[2] = iceRecipeNum;
+            int recipeNum = ValidateRecipeQuantity(iceRecipe);
+            recipe[2] = recipeNum;
         }
         public void ChangeRecipeAll()
         {
@@ -157,27 +157,32 @@ namespace LemonadeStand
         {
             Console.WriteLine("You sold a total of " + sellCount + " lemonades to " + customerCount + " people that passed by.");
         }
-        //private void ValidateSetPrice(string priceString)
-        //{
-        //    if (Single.TryParse(priceString, out price))
-        //        {
-        //        price = float.Parse(priceString);
-        //        }
-        //    else
-        //    {
-        //        Console.Clear();
-        //        Console.WriteLine("Enter a number. ex: '.45'");
-        //        SetPrice();
-        //    }
-        //}
         private void ValidateSetPrice(string priceString)
         {
-            if (Single.TryParse(priceString, out price));
+            if (Single.TryParse(priceString, out price)) ;
             else
             {
                 Console.WriteLine("Write a number. ex '.45'.");
                 price = .25F;
             }
+        }
+        private int ValidateRecipeQuantity(string recipeInput)
+        {
+            int recipeNum;
+            if (int.TryParse(recipeInput, out recipeNum)) ;
+            else
+            {
+                Console.WriteLine("\nWrite a number. ex: '3'. Amount changed to '2'.");
+                Console.ReadLine();
+                recipeNum = 2;
+            }
+            return recipeNum;
+        }
+        private int ValidatePurchaseQuantity(string productQuantityString)
+        {
+            int quantityNum;
+            if (int.TryParse(productQuantityString, out quantityNum)) ;
+            return quantityNum;
         }
     }
 }

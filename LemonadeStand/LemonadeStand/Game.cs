@@ -18,6 +18,7 @@ namespace LemonadeStand
         public Random r;
         public void RunGame()
         {
+            WelcomePlayer();
             SetGameLength();
             player = new Player();
             store = new Store();
@@ -43,6 +44,7 @@ namespace LemonadeStand
             }
             finalScore = player.inventory.wallet;
             player.DisplayTotalProfit();
+            PlayAgainOption();
             Console.ReadLine();
         }
         
@@ -87,6 +89,7 @@ namespace LemonadeStand
             {
                 Console.Clear();
                 MainMenu();
+                return;
             }
                 int userInputNum = int.Parse(userInput);
                 switch (userInputNum)
@@ -109,13 +112,13 @@ namespace LemonadeStand
                         Console.Clear();
                         MainMenu();
                         break;
-                case 5:
+                    case 5:
                         Console.Clear();
                         day.DisplayWeather();
                         Console.Clear();
                         MainMenu();
                         break;
-                case 6:
+                    case 6:
                         break;
                 }
         }
@@ -129,6 +132,7 @@ namespace LemonadeStand
             {
                 Console.Clear();
                 InventoryMenu();
+                return;
             }
             int userInputNum = int.Parse(userInput);
             switch (userInputNum)
@@ -155,6 +159,7 @@ namespace LemonadeStand
             {
                 Console.Clear();
                 StoreMenu();
+                return;
             }
             int userInputNum = int.Parse(userInput);
             switch (userInputNum)
@@ -270,6 +275,7 @@ namespace LemonadeStand
             {
                 Console.Clear();
                 RecipeMenu();
+                return;
             }
             int userInputNum = int.Parse(userInput);
             switch (userInputNum)
@@ -306,12 +312,13 @@ namespace LemonadeStand
         }
         private void SetGameLength()
         {
-            Console.WriteLine("\nFor how many days would you like to sell lemonade?\n\n[1] 7 Days\n[2] 14 Days\n[3] 30 Days (not reccommended)");
+            Console.WriteLine("\nFor how many days would you like to sell lemonade?\n\n[1] 7 Days\n[2] 14 Days\n[3] 30 Days");
             string userInput = Console.ReadLine();
             if (userInput != "1" && userInput != "2" && userInput != "3")
             {
                 Console.Clear();
                 SetGameLength();
+                return;
             }
             int userInputNum = int.Parse(userInput);
             switch (userInputNum)
@@ -333,6 +340,20 @@ namespace LemonadeStand
         public void GetRandomNumber()
         {
             r = new Random();
+        }
+        private void PlayAgainOption()
+        {
+            Console.WriteLine("Would you like to play again?");
+            string userInput = Console.ReadLine();
+            if (userInput == "yes" || userInput == "Yes" || userInput == "y" || userInput == "Y")
+            {
+                Console.Clear();
+                RunGame();
+            }
+        }
+        private void WelcomePlayer()
+        {
+            Console.WriteLine("Welcome to Aaron's Awesome Lemonade Stand.\n");
         }
     }
 }

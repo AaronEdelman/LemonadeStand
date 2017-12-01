@@ -27,7 +27,6 @@ namespace LemonadeStand
                 "Insert into LemonadeScore (Name, Profit) Values (name, profit)";
                     command.ExecuteNonQuery();
 
-                    // Attempt to commit the transaction.
                     transaction.Commit();
                     Console.WriteLine("Both records are written to database.");
             }
